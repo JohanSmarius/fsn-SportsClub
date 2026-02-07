@@ -35,7 +35,7 @@ else
 
     /* Required members must be at least as visible as their containing type.
      * For example, a public class can't contain a required field that's protected. */
-    public required IEnumerable<WorkoutDto> _sports = Enumerable.Empty<WorkoutDto>();
+    public required IEnumerable<WorkoutDto> _sports = [];
 
     protected override async Task OnInitializedAsync()
     {
@@ -43,7 +43,7 @@ else
         try
         {
             var result = await Http.GetFromJsonAsync<IEnumerable<WorkoutDto>>("api/Schedule/GetWorkouts");
-            _sports = result ?? Enumerable.Empty<WorkoutDto>();
+            _sports = result ?? [];
         }
         catch (HttpRequestException ex)
         {

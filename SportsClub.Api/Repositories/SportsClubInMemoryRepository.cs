@@ -28,10 +28,7 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
     {
         await Task.Delay(100);
 
-        IEnumerable<Lesson> found
-            = SportClubSeedData.Lessons
+        return SportClubSeedData.Lessons
             .Where((Lesson w) => w.StartDateTime >= startDateTime && w.StartDateTime <= endDateTime);
-
-        return found;
     }
 }
