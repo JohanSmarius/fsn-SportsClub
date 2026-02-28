@@ -10,7 +10,7 @@ namespace SportsClub.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class WorkoutsController : Controller
+public class WorkoutsController : ControllerBase
 {
     private readonly SportsClubDbContext _context;
 
