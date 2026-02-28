@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using SportsClub.Api.Data;
 using SportsClub.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,12 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddDbContext<SportsClubDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SportsClubDbConnection"))
+);
+
 // Added for SportsClub
-builder.Services.AddScoped<ISportsClubRepository, SportsClubInMemoryRepository>();
+builder.Services.AddScoped<ISportsClubRepository, SportsClubDbRepository>();
 
 var app = builder.Build();
 

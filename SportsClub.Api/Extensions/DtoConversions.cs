@@ -5,6 +5,20 @@ namespace SportsClub.Api.Extensions;
 
 public static class DtoConversions
 {
+    public static Workout ToWorkout(this WorkoutDto workoutDto)
+    {
+        return new Workout
+        {
+            Id = workoutDto.Id,
+            Title = workoutDto.Title,
+            Description = workoutDto.Description,
+            Category = workoutDto.Category,
+            Image = workoutDto.Image,
+            Duration = workoutDto.Duration,
+            Price = workoutDto.Price,
+        };
+    }
+
     public static IEnumerable<WorkoutDto> ConvertToDto(this IEnumerable<Workout> workouts)
     {
         return (from workout in workouts
