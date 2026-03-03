@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportsClub.Api.Data;
 
@@ -11,9 +12,11 @@ using SportsClub.Api.Data;
 namespace SportsClub.Api.Migrations
 {
     [DbContext(typeof(SportsClubDbContext))]
-    partial class SportsClubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260228204053_AddAuthAndSeedUsers")]
+    partial class AddAuthAndSeedUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

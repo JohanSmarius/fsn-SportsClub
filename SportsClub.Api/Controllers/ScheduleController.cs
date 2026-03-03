@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportsClub.Api.Extensions;
 using SportsClub.Api.Repositories;
 using SportsClub.SharedModels.Dtos;
@@ -8,7 +9,7 @@ namespace SportsClub.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-
+[Authorize]
 public class ScheduleController(ISportsClubRepository workoutRepository) : ControllerBase // Controller extends ControllerBase with support for Views
 {
     [HttpGet]

@@ -297,4 +297,38 @@ public static class SportClubSeedData
 
     #endregion
 
+    #region users
+    private static int userId = 1;
+
+    public static readonly List<User> Users
+        =
+    [
+        new User 
+        { 
+            Id = userId++, 
+            Username = "testuser", 
+            Email = "test@sportsclub.com", 
+            PasswordHash = HashPassword("Test@123"), 
+            CreatedAt = DateTime.UtcNow 
+        },
+        new User 
+        { 
+            Id = userId++, 
+            Username = "admin", 
+            Email = "admin@sportsclub.com", 
+            PasswordHash = HashPassword("Admin@123"), 
+            CreatedAt = DateTime.UtcNow 
+        }
+    ];
+
+    #endregion
+
+    private static string HashPassword(string password)
+    {
+        using (var sha256 = System.Security.Cryptography.SHA256.Create())
+        {
+            var hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
+        }
+    }
 }
