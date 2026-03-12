@@ -31,4 +31,11 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
         return SportClubSeedData.Lessons
             .Where((Lesson w) => w.StartDateTime >= startDateTime && w.StartDateTime <= endDateTime);
     }
+
+    public async Task<Workout?> GetWorkoutById(int id)
+    {
+        await Task.Delay(100);
+
+        return SportClubSeedData.Workouts.Find(w => w.Id == id);
+    }
 }

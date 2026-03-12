@@ -11,4 +11,6 @@ public class Workout
     // Duration in minutes:
     public int Duration { get; set; }
     public decimal? Price { get; set; }
+    
+    public int? Capacity { get; set; }
 }
