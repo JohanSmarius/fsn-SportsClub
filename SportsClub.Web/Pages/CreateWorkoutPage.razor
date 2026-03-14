@@ -1,5 +1,7 @@
 ﻿@page "/add-workout"
 @using Blazored.FluentValidation
+@using System.Net.Http.Json
+@inject HttpClient Http
 
 <PageTitle>Add Workout - BRESS</PageTitle>
 
@@ -79,9 +81,9 @@ else if (_errorMessage is not null)
 
     private async Task SubmitForm()
     {
-        await Task.Delay(100);
-        var response = new { WorkoutId = 1, ResponseCode = 201 }; //await Mediator.Send(new AddWorkoutRequest(_workout));
-        if (response.WorkoutId == -1)
+        var response = await Http.PostAsJsonAsync("api/Workouts", _workout);
+
+        if (!response.IsSuccessStatusCode)
         {
             _errorMessage = "There was a problem saving your new workout.";
             _submitSuccessful = false;

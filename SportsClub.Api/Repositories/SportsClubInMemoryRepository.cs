@@ -6,6 +6,8 @@ namespace SportsClub.Api.Repositories;
 
 public class SportsClubInMemoryRepository : ISportsClubRepository
 {
+    private readonly List<Workout> _workouts = new List<Workout>(SportClubSeedData.Workouts);
+    
     public async Task<IEnumerable<Location>> GetLocations()
     {
         // Simulate a delay:
@@ -20,14 +22,13 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
     {
         await Task.Delay(100);
 
-        return SportClubSeedData.Workouts;
+        return _workouts;
     }
 
  
     public async Task<IEnumerable<Lesson>> GetSchedule(DateTime startDateTime, DateTime endDateTime)
     {
         await Task.Delay(100);
-
         return SportClubSeedData.Lessons
             .Where((Lesson w) => w.StartDateTime >= startDateTime && w.StartDateTime <= endDateTime);
     }
@@ -35,7 +36,13 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
     public async Task<Workout?> GetWorkoutById(int id)
     {
         await Task.Delay(100);
-
-        return SportClubSeedData.Workouts.Find(w => w.Id == id);
+        return _workouts.Find(w => w.Id == id);
+    }
+    
+    public async Task AddWorkout(Workout workout)
+    {
+        // Simulate a delay:
+        await Task.Delay(100);
+        _workouts.Add(workout);
     }
 }
