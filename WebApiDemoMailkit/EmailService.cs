@@ -18,17 +18,9 @@ public class EmailService : IEmailService
         try
         {
             var smtpServer = _configuration["EmailSettings:SmtpServer"];
-            var port = _configuration.GetValue<int?>("EmailSettings:Port");
+            var port = int.Parse(_configuration["EmailSettings:Port"]);
             var fromMail = _configuration["EmailSettings:Username"];
             var password = _configuration["EmailSettings:Password"];
-
-            if (string.IsNullOrWhiteSpace(smtpServer) ||
-                !port.HasValue ||
-                string.IsNullOrWhiteSpace(fromMail) ||
-                string.IsNullOrWhiteSpace(password))
-            {
-                return "Email sending failed. Error: Email settings are missing or invalid.";
-            }
 
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("Your Name", fromMail));
@@ -37,7 +29,7 @@ public class EmailService : IEmailService
             email.Body = new TextPart("html") { Text = mailBody };
 
             using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(smtpServer, port.Value, SecureSocketOptions.StartTls);
+            await smtp.ConnectAsync(smtpServer, port, SecureSocketOptions.StartTls);
             await smtp.AuthenticateAsync(fromMail, password);
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
@@ -46,6 +38,7 @@ public class EmailService : IEmailService
         }
         catch (Exception ex)
         {
+            // Log the exception (not done here for simplicity)
             return $"Email sending failed. Error: {ex.Message}";
         }
     }

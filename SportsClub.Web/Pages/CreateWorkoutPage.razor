@@ -20,6 +20,7 @@ else if (_errorMessage is not null)
 <EditForm Model="_workout" OnValidSubmit="SubmitForm">
     <DataAnnotationsValidator /> @*validation option 1 - used for checking length of title*@
     <FluentValidationValidator /> @*validation option 2 - uses WorkoutValidator (see in WorkoutDto)*@
+    <ValidationSummary />
 
     <FormSection Title="Basic Details"
                  HelpText="This information is used to identify the workout and can be searched to help Bress members find it.">
@@ -75,7 +76,8 @@ else if (_errorMessage is not null)
 </EditForm>
 
 @code {
-    private WorkoutDto _workout = new WorkoutDto();
+    [SupplyParameterFromForm]
+    private WorkoutDto _workout { get; set; } = new WorkoutDto();
     private bool _submitSuccessful;
     private string? _errorMessage;
 
