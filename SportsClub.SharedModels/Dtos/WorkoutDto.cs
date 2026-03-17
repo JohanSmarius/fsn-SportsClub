@@ -1,14 +1,25 @@
 ﻿using FluentValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace SportsClub.SharedModels.Dtos;
 
 public class WorkoutDto
 {
     public int Id { get; init; }
+
+    [Required]
+    [MinLength(4)]
     public string Title { get; set; } = string.Empty;
+
+    [Required]
     public string Description { get; set; } = string.Empty;
+
+    [Required]
+    [MinLength(2)]
     public string Category { get; set; } = string.Empty;
     public string? Image { get; set; } = string.Empty;
+
+    [Range(1, 100)]
     public int Duration { get; set; } 
     public decimal? Price { get; init; } 
 }
