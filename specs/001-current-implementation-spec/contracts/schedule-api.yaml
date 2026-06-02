@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: SportsClub Schedule API
+  version: 1.0.0
+  description: Contract for workout catalog and lesson schedule retrieval in current implementation.
+servers:
+  - url: https://localhost:7020
+paths:
+  /api/Schedule/GetWorkouts:
+    get:
+      summary: Get all workouts
+      operationId: getWorkouts
+      responses:
+        '200':
+          description: List of workouts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkoutDto'
+        '404':
+          description: Workouts not found
+        '500':
+          description: Internal server error
+  /api/Schedule/GetLessonsBetween:
+    get:
+      summary: Get lessons between start and end date-time
+      operationId: getLessonsBetween
+      parameters:
+        - in: query
+          name: dateStart
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: dateEnd
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: List of lessons in range
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LessonDto'
+  /api/Schedule/GetTodaysLessons:
+    get:
+      summary: Get lessons scheduled for current day
+      operationId: getTodaysLessons
+      responses:
+        '200':
+          description: List of today's lessons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LessonDto'
+components:
+  schemas:
+    WorkoutDto:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - category
+        - duration
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        image:
+          type: string
+          nullable: true
+        duration:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+          nullable: true
+    LessonDto:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - category
+        - duration
+        - startTime
+        - location
+        - instructor
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        image:
+          type: string
+          nullable: true
+        duration:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+          nullable: true
+        startTime:
+          type: string
+          format: date-time
+        location:
+          type: string
+        instructor:
+          type: string
